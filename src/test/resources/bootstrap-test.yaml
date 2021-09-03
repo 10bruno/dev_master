@@ -1,0 +1,19 @@
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    group: bruno
+    name: bruno-fatura-cartao
+  cloud:
+    consul:
+      enabled: false
+    vault:
+      enabled: false
+management:
+  metrics:
+    export:
+      influx:
+        enabled: false
+server:
+  servlet:
+    contextPath: /${spring.application.name}

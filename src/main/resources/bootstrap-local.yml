@@ -1,0 +1,64 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@192.168.0.1:1521/oracle
+    username: bruno
+    password: bruno
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        enable_lazy_load_no_trans: true
+        dialect: org.hibernate.dialect.Oracle12cDialect
+
+  cloud:
+    consul:
+      enabled: false
+    vault:
+      enabled: false
+  kafka:
+    properties:
+      max.block.ms: 10000
+    consumer:
+      enable-auto-commit: false
+      bootstrap-servers: localhost:9092
+      key-deserializer: 'org.apache.kafka.common.serialization.StringDeserializer'
+      value-deserializer: 'org.apache.kafka.common.serialization.StringDeserializer'
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: 'org.apache.kafka.common.serialization.StringSerializer'
+      value-serializer: 'org.springframework.kafka.support.serializer.JsonSerializer'
+      retries: 1
+      acks: 1
+    listener:
+      ack-mode: manual-immediate
+logging:
+  level:
+    org:
+      springframework: trace
+  br:
+    com:
+      bruno:
+        bruno:
+          fatura:
+            cartao: trace
+
+management:
+  metrics:
+    export:
+      influx:
+        enabled: false
+
+fatura-cartao:
+  topic:
+    consumer: consumer_dados_v1
+    producer: producer-dados-v1
+    error: dlq_v1
+  finance-charges:
+    tipos:
+      - nome: OUTROS_TARIFA
+        descricao: "Tarifa bancaria"
+      - nome: OUTROS_PAGAMENTO
+        descricao: "Pagamento titulo"
+      - nome: OUTROS_ROTATIVO
+        descricao: "Rotativou a fatura"
