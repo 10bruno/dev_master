@@ -2,7 +2,6 @@ package fatura.cartao.service;
 
 import fatura.cartao.config.FaturaCartaoConfig;
 import fatura.cartao.dto.FaturaCartao;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,6 +11,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @Slf4j
@@ -20,6 +20,8 @@ public class ProducerService {
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     private final FaturaCartaoConfig faturaCartaoConfig;
+
+    private final AtomicBoolean hasError = new AtomicBoolean();
 
     @Autowired
     public ProducerService(KafkaTemplate<String, Object> kafkaTemplate, FaturaCartaoConfig faturaCartaoConfig) {
@@ -39,16 +41,24 @@ public class ProducerService {
                         log.info("Tópico -> {}", result.getRecordMetadata().topic());
                     }
 
-                    @SneakyThrows
                     @Override
                     public void onFailure(Throwable ex) {
-                        throw new Throwable("Erro ao enviar mensagem para o tópico -> " + faturaCartaoConfig.getProducer());
+                        hasError.set(true);
+                        enviaTopicoErro(json);
                     }
                 });
+                if (hasError.get()) {
+                    break;
+                }
             }
         } catch (Throwable ex) {
-            log.error("Enviando mensagem para o topico de erro -> " + json);
-            kafkaTemplate.send(faturaCartaoConfig.getError(), json);
+            enviaTopicoErro(json);
         }
     }
+
+    private void enviaTopicoErro(String json) {
+        log.error("Enviando mensagem para o topico de erro -> " + json);
+        kafkaTemplate.send(faturaCartaoConfig.getError(), json);
+    }
+
 }

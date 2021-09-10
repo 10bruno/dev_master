@@ -21,7 +21,6 @@ public class TestConstants {
     public static final String permissao = "CREDIT_CARDS_ACCOUNTS_BILLS_READ";
     public static final String origem = "cadastro";
 
-    //Entity FaturaCartaoDados
     public static final String row_num = "1";
     public static final String numContaRepo = "0004960450097080003";
     public static final String billIdRepo = "17";
@@ -31,7 +30,6 @@ public class TestConstants {
     public static final String encargoType = "OUTROS_TARIFA";
     public static final String currency = "BRL";
 
-    //DTO FinanceCharges
     public static final String type = "OUTROS_TARIFA";
     public static final String additionalInfo = "Tarifa bancaria";
     public static final BigDecimal chargeAmount = new BigDecimal(276.0000);
@@ -39,7 +37,6 @@ public class TestConstants {
 
     public static final LocalDateTime localDateTime = LocalDateTime.now();
 
-    //consumer
     public static final String TOPICO_IN = "topic";
     public static final int PARTICAO = 1;
     public static final long OFFSET = 0;

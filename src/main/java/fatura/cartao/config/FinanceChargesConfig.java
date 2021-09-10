@@ -10,7 +10,6 @@ import java.util.List;
 @Validated
 @Component
 @Data
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
