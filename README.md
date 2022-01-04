@@ -1,1 +1,6 @@
-Este projeto tem como objetivo mostrar como se consome uma mensagem do kafka, efetua uma consulta no banco e posta o resultado novamente no kafka.
+Objetivo do projeto
+
+Consumir uma mensagem via Kafka
+Efetua uma pesquisa no banco
+Tratar os dados
+Postar o resultado novamente via Kafka
