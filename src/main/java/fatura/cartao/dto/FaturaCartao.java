@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FaturaCartao {
 
-    private final String type = "CREDIT_CARD_ACCOUNT_BILL";
+    private static final String TYPE = "CREDIT_CARD_ACCOUNT_BILL";
     private Data data;
     private Meta meta;
 

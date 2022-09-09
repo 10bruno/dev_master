@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface FaturaRepository extends JpaRepository<FaturaCartaoDados, String> {
-
     @Query(value = "SELECT rownum AS row_num\n" +
             ",f.conta AS num_conta\n" +
             ",f.fatura AS bill_id\n" +

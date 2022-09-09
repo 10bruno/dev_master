@@ -16,13 +16,13 @@ public class FaturaCartaoDados {
 
     @Id
     @Column(name = "row_num")
-    String row_num;
+    String rowNum;
     @Column(name = "num_conta")
     String numConta;
     @Column(name = "bill_id")
     String billId;
     @Column(name = "due_date")
-    LocalDate due_date;
+    LocalDate dueDate;
     @Column(name = "bill_total_amount")
     BigDecimal billTotalAmount;
     @Column(name = "company_cnpj")

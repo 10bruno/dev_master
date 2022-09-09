@@ -15,7 +15,7 @@ public class FaturaCartaoEncargos {
 
     @Id
     @Column(name = "row_num")
-    String row_num;
+    String rowNum;
     @Column(name = "num_conta")
     String numConta;
     @Column(name = "bill_id")

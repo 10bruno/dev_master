@@ -15,19 +15,17 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ConsumerServiceTest {
+class ConsumerServiceTest {
 
     @InjectMocks
     private ConsumerService consumerService;
-
     @Mock
     private ProducerService producerService;
-
     @Mock
     private FaturaCartaoService faturaCartaoService;
 
     @Test
-    public void deveConsumirMensagemCadastroComFaturaERetornarSucesso() throws Exception {
+    void deveConsumirMensagemCadastroComFaturaERetornarSucesso() throws Exception {
         List<FaturaCartao> faturaCartaoList = MockBuilders.buildMockListFaturaCartao();
         ConsumerRecord<String, String> consumerRecord = MockBuilders.buildConsumerRecord();
         when(this.faturaCartaoService.processaFatura(any())).thenReturn(faturaCartaoList);
@@ -38,13 +36,16 @@ public class ConsumerServiceTest {
     }
 
     @Test
-    public void deveTentarConsumirERetornarException() throws Exception {
+    void deveTentarConsumirERetornarException() throws Exception {
+        String json = MockBuilders.buildMockJson();
+        List<FaturaCartao> faturaCartaoList = MockBuilders.buildMockListFaturaCartao();
         ConsumerRecord<String, String> consumerRecord = MockBuilders.buildConsumerRecord();
         doThrow(Exception.class)
                 .when(this.faturaCartaoService)
                 .processaFatura(any());
-
         Acknowledgment ack = mock(Acknowledgment.class);
+
         this.consumerService.listener(consumerRecord, ack);
+        verify(producerService, times(0)).send(faturaCartaoList, json);
     }
 }

@@ -85,7 +85,7 @@ public class FaturaCartaoService {
     private Data getData(FaturaCartaoDados faturaCartaoDados) {
         return Data.builder()
                 .billId(faturaCartaoDados.getBillId())
-                .dueDate(faturaCartaoDados.getDue_date())
+                .dueDate(faturaCartaoDados.getDueDate())
                 .billTotalAmount(faturaCartaoDados.getBillTotalAmount())
                 .build();
     }

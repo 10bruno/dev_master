@@ -24,31 +24,28 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FaturaCartaoServiceTest {
+class FaturaCartaoServiceTest {
 
     @InjectMocks
     private FaturaCartaoService faturaCartaoService;
-
     @Mock
     private FaturaRepository faturaRepository;
-
     @Mock
     private EncargosRepository encargosRepository;
-
     @Mock
     private FinanceChargesConfig config;
 
     @Test
-    public void deveProcessarFaturaERetornarListaDeFaturas() throws Exception {
+    void deveProcessarFaturaERetornarListaDeFaturas() throws Exception {
         EntradaJson entradaJson = MockBuilders.buildMockEntradaJson();
         List<FaturaCartaoDados> faturaCartaoDadosList = MockBuilders.buildMockListFaturaCartaoDados();
         String json = MockBuilders.buildMockJson();
         ArrayList<String> faturas = MockBuilders.buildMockFaturas();
         List<FaturaCartaoEncargos> faturaCartaoEncargosList = MockBuilders.buildMockListFaturaCartaoEncargos();
 
-        when(this.faturaRepository.findByNumConta(eq(entradaJson.getConta())))
+        when(this.faturaRepository.findByNumConta(entradaJson.getConta()))
                 .thenReturn(Optional.ofNullable(faturaCartaoDadosList));
-        when(this.encargosRepository.findByNumContaAndFaturasEncargos(eq(entradaJson.getConta()), eq(faturas)))
+        when(this.encargosRepository.findByNumContaAndFaturasEncargos(entradaJson.getConta(), faturas))
                 .thenReturn(Optional.ofNullable(faturaCartaoEncargosList));
 
         List<FaturaCartao> faturaList = this.faturaCartaoService.processaFatura(json);
@@ -56,24 +53,24 @@ public class FaturaCartaoServiceTest {
     }
 
     @Test
-    public void deveProcessarFaturaERetornarSemEncargo() throws Exception {
+    void deveProcessarFaturaERetornarSemEncargo() throws Exception {
         EntradaJson entradaJson = MockBuilders.buildMockEntradaJson();
         List<FaturaCartaoDados> faturaCartaoDadosList = MockBuilders.buildMockListFaturaCartaoDados();
         String json = MockBuilders.buildMockJson();
         ArrayList<String> faturas = MockBuilders.buildMockFaturas();
         List<FaturaCartaoEncargos> faturaCartaoEncargosList = new ArrayList<>();
 
-        when(this.faturaRepository.findByNumConta(eq(entradaJson.getConta())))
+        when(this.faturaRepository.findByNumConta(entradaJson.getConta()))
                 .thenReturn(Optional.ofNullable(faturaCartaoDadosList));
-        when(this.encargosRepository.findByNumContaAndFaturasEncargos(eq(entradaJson.getConta()), eq(faturas)))
-                .thenReturn(Optional.ofNullable(faturaCartaoEncargosList));
+        when(this.encargosRepository.findByNumContaAndFaturasEncargos(entradaJson.getConta(), faturas))
+                .thenReturn(Optional.of(faturaCartaoEncargosList));
 
         List<FaturaCartao> faturaList = this.faturaCartaoService.processaFatura(json);
-        Assertions.assertEquals(faturaList.get(0).getData().getFinanceCharges().get(0).getType(), TestConstants.semEncargo);
+        Assertions.assertEquals(TestConstants.semEncargo, faturaList.get(0).getData().getFinanceCharges().get(0).getType());
     }
 
     @Test
-    public void deveProcessarFaturaERetornarChargesDiferenteDeOutros() throws Exception {
+    void deveProcessarFaturaERetornarChargesDiferenteDeOutros() throws Exception {
         EntradaJson entradaJson = MockBuilders.buildMockEntradaJson();
         List<FaturaCartaoDados> faturaCartaoDadosList = MockBuilders.buildMockListFaturaCartaoDados();
         String json = MockBuilders.buildMockJson();
@@ -81,22 +78,22 @@ public class FaturaCartaoServiceTest {
         List<FaturaCartaoEncargos> faturaCartaoEncargosList = MockBuilders.buildMockListFaturaCartaoEncargos();
         faturaCartaoEncargosList.get(0).setType(TestConstants.typeIOF);
 
-        when(this.faturaRepository.findByNumConta(eq(entradaJson.getConta())))
+        when(this.faturaRepository.findByNumConta(entradaJson.getConta()))
                 .thenReturn(Optional.of(faturaCartaoDadosList));
-        when(this.encargosRepository.findByNumContaAndFaturasEncargos(eq(entradaJson.getConta()), eq(faturas)))
+        when(this.encargosRepository.findByNumContaAndFaturasEncargos(entradaJson.getConta(), faturas))
                 .thenReturn(Optional.of(faturaCartaoEncargosList));
 
         List<FaturaCartao> faturaList = this.faturaCartaoService.processaFatura(json);
-        Assertions.assertEquals(faturaList.get(0).getData().getFinanceCharges().get(0).getType(), TestConstants.typeIOF);
+        Assertions.assertEquals(TestConstants.typeIOF, faturaList.get(0).getData().getFinanceCharges().get(0).getType());
     }
 
     @Test
-    public void deveProcessarFaturaENaoEncontrarDados() {
+    void deveProcessarFaturaENaoEncontrarDados() {
         EntradaJson entradaJson = MockBuilders.buildMockEntradaJson();
         List<FaturaCartaoDados> faturaCartaoDadosList = new ArrayList<>();
         String json = MockBuilders.buildMockJson();
 
-        when(this.faturaRepository.findByNumConta(eq(entradaJson.getConta())))
+        when(this.faturaRepository.findByNumConta(entradaJson.getConta()))
                 .thenReturn(Optional.of(faturaCartaoDadosList));
         Exception exception = Assertions.assertThrows(
                 Exception.class,

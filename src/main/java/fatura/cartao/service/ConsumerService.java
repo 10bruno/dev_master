@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class ConsumerService {
-
     private final ProducerService producerService;
     private final FaturaCartaoService faturaCartaoService;
 
@@ -24,8 +23,8 @@ public class ConsumerService {
     }
 
     @KafkaListener(topics = "#{@faturaCartaoConfig.getConsumer()}", groupId = "fatura-cartao", containerFactory = "filtroFaturaCartao")
-    public void listener(ConsumerRecord<String, String> record, Acknowledgment ack) {
-        String json = record.value();
+    public void listener(ConsumerRecord<String, String> consumerRecord, Acknowledgment ack) {
+        String json = consumerRecord.value();
         try {
             log.info("Processando mensagem -> {}", json);
             List<FaturaCartao> faturaCartao = this.faturaCartaoService.processaFatura(json);

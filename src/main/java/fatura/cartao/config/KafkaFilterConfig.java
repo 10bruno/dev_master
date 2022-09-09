@@ -12,11 +12,11 @@ import org.springframework.kafka.listener.ContainerProperties;
 @Configuration
 public class KafkaFilterConfig {
 
-    private ConsumerFactory consumerFactory;
-    private final static String PERMISSAO = "CREDIT_CARDS_ACCOUNTS_BILLS_READ";
+    private final ConsumerFactory<String, String> consumerFactory;
+    private static final String PERMISSAO = "CREDIT_CARDS_ACCOUNTS_BILLS_READ";
 
     @Autowired
-    public KafkaFilterConfig(ConsumerFactory consumerFactory) {
+    public KafkaFilterConfig(ConsumerFactory<String, String> consumerFactory) {
         this.consumerFactory = consumerFactory;
     }
 
@@ -33,5 +33,4 @@ public class KafkaFilterConfig {
     private Boolean deveFiltrar(ConsumerRecord<String, String> consumerRecord) {
         return !GsonDeserializer.getJson(consumerRecord.value()).getPermissao().toUpperCase().contains(PERMISSAO);
     }
-
 }

@@ -21,10 +21,8 @@ public class FaturaCartaoConfig {
 
     @NotEmpty
     private String consumer;
-
     @NotEmpty
     private String producer;
-
     @NotEmpty
     private String error;
 

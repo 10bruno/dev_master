@@ -15,15 +15,11 @@ import java.util.List;
 @Builder
 @ConfigurationProperties(prefix = "fatura-cartao.finance-charges")
 public class FinanceChargesConfig {
-
     private List<Tipos> tipos;
 
     @Data
     public static class Tipos {
-
         private String nome;
         private String descricao;
-
     }
-
 }

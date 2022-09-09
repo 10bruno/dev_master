@@ -29,10 +29,10 @@ public class MockBuilders {
 
     public static FaturaCartaoDados buildMockFaturaCartaoDados() {
         return FaturaCartaoDados.builder()
-                .row_num(TestConstants.row_num)
+                .rowNum(TestConstants.row_num)
                 .numConta(TestConstants.numContaRepo)
                 .billId(TestConstants.billIdRepo)
-                .due_date(TestConstants.due_date)
+                .dueDate(TestConstants.due_date)
                 .billTotalAmount(TestConstants.billTotalAmount)
                 .cnpj(TestConstants.companyCnpj)
                 .build();
@@ -50,7 +50,6 @@ public class MockBuilders {
                 .financeCharges(buildMockListFinanceCharges())
                 .build();
     }
-
 
     public static FinanceCharges buildMockFinanceCharges() {
         return FinanceCharges.builder()
@@ -90,7 +89,7 @@ public class MockBuilders {
 
     public static FaturaCartaoEncargos buildMockFaturaCartaoEncargos() {
         return FaturaCartaoEncargos.builder()
-                .row_num(TestConstants.row_num)
+                .rowNum(TestConstants.row_num)
                 .numConta(TestConstants.numConta)
                 .billId(TestConstants.fatura)
                 .type(TestConstants.encargoType)
@@ -110,5 +109,4 @@ public class MockBuilders {
                 TestConstants.KEY,
                 buildMockJson());
     }
-
 }
