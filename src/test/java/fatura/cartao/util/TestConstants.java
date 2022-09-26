@@ -25,14 +25,14 @@ public class TestConstants {
     public static final String numContaRepo = "0004960450097080003";
     public static final String billIdRepo = "17";
     public static final LocalDate due_date = LocalDate.of(2021, 12, 10);
-    public static final BigDecimal billTotalAmount = new BigDecimal(1204.80000);
+    public static final BigDecimal billTotalAmount = new BigDecimal("1204.80000");
     public static final String companyCnpj = "23646564000109";
     public static final String encargoType = "OUTROS_TARIFA";
     public static final String currency = "BRL";
 
     public static final String type = "OUTROS_TARIFA";
     public static final String additionalInfo = "Tarifa bancaria";
-    public static final BigDecimal chargeAmount = new BigDecimal(276.0000);
+    public static final BigDecimal chargeAmount = new BigDecimal("276.0000");
     public static final String chargeCurrency = "BRL";
 
     public static final LocalDateTime localDateTime = LocalDateTime.now();

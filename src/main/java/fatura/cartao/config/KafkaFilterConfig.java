@@ -12,7 +12,7 @@ import org.springframework.kafka.listener.ContainerProperties;
 @Configuration
 public class KafkaFilterConfig {
 
-    private ConsumerFactory consumerFactory;
+    private final ConsumerFactory consumerFactory;
     private final static String PERMISSAO = "CREDIT_CARDS_ACCOUNTS_BILLS_READ";
 
     @Autowired

@@ -66,7 +66,7 @@ public class FaturaCartaoServiceTest {
         when(this.faturaRepository.findByNumConta(eq(entradaJson.getConta())))
                 .thenReturn(Optional.ofNullable(faturaCartaoDadosList));
         when(this.encargosRepository.findByNumContaAndFaturasEncargos(eq(entradaJson.getConta()), eq(faturas)))
-                .thenReturn(Optional.ofNullable(faturaCartaoEncargosList));
+                .thenReturn(Optional.of(faturaCartaoEncargosList));
 
         List<FaturaCartao> faturaList = this.faturaCartaoService.processaFatura(json);
         Assertions.assertEquals(faturaList.get(0).getData().getFinanceCharges().get(0).getType(), TestConstants.semEncargo);
