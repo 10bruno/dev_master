@@ -41,7 +41,7 @@ class ProducerServiceTest {
         String json = MockBuilders.buildMockJson();
         when(config.getProducer()).thenReturn("sucesso");
         SendResult sendResult = mock(SendResult.class);
-        RecordMetadata recordMetadata = new RecordMetadata(new TopicPartition(config.getProducer(), 1), 1L, 5, 5, 2, 2);
+        RecordMetadata recordMetadata = new RecordMetadata(new TopicPartition(config.getProducer(), 1), 1L, 5, 5L, 5, 2);
         ProducerRecord<String, FaturaCartao> producerRecord = new ProducerRecord<>(config.getProducer(), faturaCartao);
         given(sendResult.getRecordMetadata()).willReturn(recordMetadata);
         given(sendResult.getProducerRecord()).willReturn(producerRecord);
