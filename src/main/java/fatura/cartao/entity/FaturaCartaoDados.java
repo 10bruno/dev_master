@@ -14,19 +14,18 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Builder
 public class FaturaCartaoDados {
 
     @Id
     @Column(name = "row_num")
-    String row_num;
+    String rowNum;
     @Column(name = "num_conta")
     String numConta;
     @Column(name = "bill_id")
     String billId;
     @Column(name = "due_date")
-    LocalDate due_date;
+    LocalDate dueDate;
     @Column(name = "bill_total_amount")
     BigDecimal billTotalAmount;
     @Column(name = "company_cnpj")
@@ -37,7 +36,7 @@ public class FaturaCartaoDados {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         FaturaCartaoDados that = (FaturaCartaoDados) o;
-        return Objects.equals(row_num, that.row_num);
+        return Objects.equals(rowNum, that.rowNum);
     }
 
     @Override

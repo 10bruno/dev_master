@@ -18,9 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ProducerService {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
-
     private final FaturaCartaoConfig faturaCartaoConfig;
-
     private final AtomicBoolean hasError = new AtomicBoolean();
 
     @Autowired
@@ -34,7 +32,7 @@ public class ProducerService {
         try {
             for (FaturaCartao faturaCartao : faturaCartaoList) {
                 ListenableFuture<SendResult<String, Object>> result = kafkaTemplate.send(faturaCartaoConfig.getProducer(), faturaCartao);
-                result.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
+                result.addCallback(new ListenableFutureCallback<>() {
                     @Override
                     public void onSuccess(SendResult<String, Object> result) {
                         log.info("Mensagem enviada -> {}", result.getProducerRecord().value());

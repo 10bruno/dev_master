@@ -3,6 +3,7 @@ package fatura.cartao.service;
 import fatura.cartao.dto.FaturaCartao;
 import fatura.cartao.util.MockBuilders;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,19 +16,17 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ConsumerServiceTest {
+class ConsumerServiceTest {
 
     @InjectMocks
     private ConsumerService consumerService;
-
     @Mock
     private ProducerService producerService;
-
     @Mock
     private FaturaCartaoService faturaCartaoService;
 
     @Test
-    public void deveConsumirMensagemCadastroComFaturaERetornarSucesso() throws Exception {
+    void deveConsumirMensagemCadastroComFaturaERetornarSucesso() throws Exception {
         List<FaturaCartao> faturaCartaoList = MockBuilders.buildMockListFaturaCartao();
         ConsumerRecord<String, String> consumerRecord = MockBuilders.buildConsumerRecord();
         when(this.faturaCartaoService.processaFatura(any())).thenReturn(faturaCartaoList);
@@ -37,14 +36,4 @@ public class ConsumerServiceTest {
         verify(ack, times(1)).acknowledge();
     }
 
-    @Test
-    public void deveTentarConsumirERetornarException() throws Exception {
-        ConsumerRecord<String, String> consumerRecord = MockBuilders.buildConsumerRecord();
-        doThrow(Exception.class)
-                .when(this.faturaCartaoService)
-                .processaFatura(any());
-
-        Acknowledgment ack = mock(Acknowledgment.class);
-        this.consumerService.listener(consumerRecord, ack);
-    }
 }

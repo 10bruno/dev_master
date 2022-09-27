@@ -13,14 +13,12 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Builder
-@NoArgsConstructor
 public class FaturaCartaoEncargos {
 
     @Id
     @Column(name = "row_num")
-    String row_num;
+    String rowNum;
     @Column(name = "num_conta")
     String numConta;
     @Column(name = "bill_id")
@@ -37,7 +35,7 @@ public class FaturaCartaoEncargos {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         FaturaCartaoEncargos that = (FaturaCartaoEncargos) o;
-        return Objects.equals(row_num, that.row_num);
+        return Objects.equals(rowNum, that.rowNum);
     }
 
     @Override

@@ -23,28 +23,25 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ProducerServiceTest {
+class ProducerServiceTest {
 
     @InjectMocks
     private ProducerService producerService;
-
     @Mock
     private FaturaCartaoConfig config;
-
     @Mock
     private KafkaTemplate<String, FaturaCartao> kafkaTemplate;
-
     @Mock
     private ListenableFuture<SendResult<String, FaturaCartao>> result;
 
     @Test
-    public void deveProduzirMensagemERetornarSucesso() {
+    void deveProduzirMensagemERetornarSucesso() {
         FaturaCartao faturaCartao = MockBuilders.buildMockFaturaCartao();
         List<FaturaCartao> faturaCartaoList = MockBuilders.buildMockListFaturaCartao();
         String json = MockBuilders.buildMockJson();
         when(config.getProducer()).thenReturn("sucesso");
-        SendResult<String, FaturaCartao> sendResult = mock(SendResult.class);
-        RecordMetadata recordMetadata = new RecordMetadata(new TopicPartition(config.getProducer(), 1), 1L, 5L, 5L, 5L, 2, 2);
+        SendResult sendResult = mock(SendResult.class);
+        RecordMetadata recordMetadata = new RecordMetadata(new TopicPartition(config.getProducer(), 1), 1L, 5, 5L, 5, 2);
         ProducerRecord<String, FaturaCartao> producerRecord = new ProducerRecord<>(config.getProducer(), faturaCartao);
         given(sendResult.getRecordMetadata()).willReturn(recordMetadata);
         given(sendResult.getProducerRecord()).willReturn(producerRecord);
@@ -62,7 +59,7 @@ public class ProducerServiceTest {
     }
 
     @Test
-    public void deveProduzirMensagemERetornarErro() {
+    void deveProduzirMensagemERetornarErro() {
         List<FaturaCartao> faturaCartaoList = MockBuilders.buildMockListFaturaCartao();
         String json = MockBuilders.buildMockJson();
         when(config.getProducer()).thenReturn("sucesso");
