@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,7 +19,7 @@ public class MockBuilders {
 
     public static EntradaJson buildMockEntradaJson() {
         return EntradaJson.builder()
-                .uuid(TestConstants.UUID)
+                .uuid(UUID.randomUUID().toString())
                 .conta(TestConstants.NUM_CONTA)
                 .fatura(TestConstants.FATURA)
                 .tipoPessoa(TestConstants.TIPO_PESSOA)
@@ -67,7 +68,7 @@ public class MockBuilders {
 
     public static Meta buildMockMeta() {
         return Meta.builder()
-                .uuid(TestConstants.UUID)
+                .uuid(UUID.randomUUID().toString())
                 .sourceTimestamp(TestConstants.LOCAL_DATE_TIME)
                 .cnpj(TestConstants.COMPANY_CNPJ)
                 .build();
