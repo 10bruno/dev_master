@@ -3,18 +3,19 @@ package fatura.cartao.util;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class TestConstants {
 
-    public static final String JSON = "{\n" +
-            "  \"uuid\":\"sadb8796-asmdnbsam-sadb8796-asmdnbsam\",\n" +
-            "  \"conta\": \"987987987987987987\",\n" +
-            "  \"tipoPessoa\": \"F\",\n" +
-            "  \"permissao\":\"CREDIT_CARDS_ACCOUNTS_BILLS_READ\",\n" +
-            "  \"origem\":\"cadastro\"\n" +
-            "}";
-
-    public static final String UUID = "sadb8796-asmdnbsam-sadb8796-asmdnbsam";
+    public static final String JSON = """
+            {
+             "uuid":"sadb8796-asmdnbsam-sadb8796-asmdnbsam",
+             "conta": "987987987987987987",
+             "tipoPessoa": "F",
+             "permissao":"CREDIT_CARDS_ACCOUNTS_BILLS_READ",
+             "origem":"cadastro"
+            }
+            """;
     public static final String NUM_CONTA = "987987987987987987";
     public static final String FATURA = "17";
     public static final String TIPO_PESSOA = "F";
@@ -36,7 +37,7 @@ public class TestConstants {
     public static final String TOPICO_IN = "topic";
     public static final int PARTICAO = 1;
     public static final long OFFSET = 0;
-    public static final String KEY = UUID;
+    public static final String KEY = UUID.randomUUID().toString();
     public static final String TYPE_IOF = "IOF";
     public static final String SEM_ENCARGO = "SEM_ENCARGO";
 

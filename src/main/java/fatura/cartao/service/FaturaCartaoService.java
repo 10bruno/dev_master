@@ -75,7 +75,7 @@ public class FaturaCartaoService {
     }
 
     private List<String> getNumFaturaList(List<FaturaCartaoDados> faturaCartaoDadosList) {
-        return faturaCartaoDadosList.stream().distinct().map(FaturaCartaoDados::getBillId).collect(Collectors.toList());
+        return faturaCartaoDadosList.stream().distinct().map(FaturaCartaoDados::getBillId).toList();
     }
 
     private List<FaturaCartaoEncargos> findEncargos(String numConta, List<String> faturas) {
