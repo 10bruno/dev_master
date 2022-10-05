@@ -3,6 +3,7 @@ package fatura.cartao.service;
 import fatura.cartao.dto.FaturaCartao;
 import fatura.cartao.util.MockBuilders;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,17 +36,4 @@ class ConsumerServiceTest {
         verify(ack, times(1)).acknowledge();
     }
 
-    @Test
-    void deveTentarConsumirERetornarException() throws Exception {
-        String json = MockBuilders.buildMockJson();
-        List<FaturaCartao> faturaCartaoList = MockBuilders.buildMockListFaturaCartao();
-        ConsumerRecord<String, String> consumerRecord = MockBuilders.buildConsumerRecord();
-        doThrow(Exception.class)
-                .when(this.faturaCartaoService)
-                .processaFatura(any());
-        Acknowledgment ack = mock(Acknowledgment.class);
-
-        this.consumerService.listener(consumerRecord, ack);
-        verify(producerService, times(0)).send(faturaCartaoList, json);
-    }
 }

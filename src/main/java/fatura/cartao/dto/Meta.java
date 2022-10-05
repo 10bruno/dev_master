@@ -1,7 +1,8 @@
 package fatura.cartao.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import fatura.cartao.dto.serializer.CustomLocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,7 +13,8 @@ import java.time.LocalDateTime;
 public class Meta {
 
     private String uuid;
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime sourceTimestamp;
     private String cnpj;
 

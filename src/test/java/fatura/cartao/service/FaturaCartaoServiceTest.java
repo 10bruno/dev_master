@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,7 +65,7 @@ class FaturaCartaoServiceTest {
                 .thenReturn(Optional.of(faturaCartaoEncargosList));
 
         List<FaturaCartao> faturaList = this.faturaCartaoService.processaFatura(json);
-        Assertions.assertEquals(TestConstants.semEncargo, faturaList.get(0).getData().getFinanceCharges().get(0).getType());
+        Assertions.assertEquals(TestConstants.SEM_ENCARGO, faturaList.get(0).getData().getFinanceCharges().get(0).getType());
     }
 
     @Test
@@ -76,7 +75,7 @@ class FaturaCartaoServiceTest {
         String json = MockBuilders.buildMockJson();
         ArrayList<String> faturas = MockBuilders.buildMockFaturas();
         List<FaturaCartaoEncargos> faturaCartaoEncargosList = MockBuilders.buildMockListFaturaCartaoEncargos();
-        faturaCartaoEncargosList.get(0).setType(TestConstants.typeIOF);
+        faturaCartaoEncargosList.get(0).setType(TestConstants.TYPE_IOF);
 
         when(this.faturaRepository.findByNumConta(entradaJson.getConta()))
                 .thenReturn(Optional.of(faturaCartaoDadosList));
@@ -84,7 +83,7 @@ class FaturaCartaoServiceTest {
                 .thenReturn(Optional.of(faturaCartaoEncargosList));
 
         List<FaturaCartao> faturaList = this.faturaCartaoService.processaFatura(json);
-        Assertions.assertEquals(TestConstants.typeIOF, faturaList.get(0).getData().getFinanceCharges().get(0).getType());
+        Assertions.assertEquals(TestConstants.TYPE_IOF, faturaList.get(0).getData().getFinanceCharges().get(0).getType());
     }
 
     @Test

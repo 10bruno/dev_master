@@ -7,34 +7,35 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MockBuilders {
 
     public static String buildMockJson() {
-        return TestConstants.json;
+        return TestConstants.JSON;
     }
 
     public static EntradaJson buildMockEntradaJson() {
         return EntradaJson.builder()
-                .uuid(TestConstants.UUID)
-                .conta(TestConstants.numConta)
-                .fatura(TestConstants.fatura)
-                .tipoPessoa(TestConstants.tipoPessoa)
-                .permissao(TestConstants.permissao)
-                .origem(TestConstants.origem)
+                .uuid(UUID.randomUUID().toString())
+                .conta(TestConstants.NUM_CONTA)
+                .fatura(TestConstants.FATURA)
+                .tipoPessoa(TestConstants.TIPO_PESSOA)
+                .permissao(TestConstants.PERMISSAO)
+                .origem(TestConstants.ORIGEM)
                 .build();
     }
 
     public static FaturaCartaoDados buildMockFaturaCartaoDados() {
         return FaturaCartaoDados.builder()
-                .rowNum(TestConstants.row_num)
-                .numConta(TestConstants.numContaRepo)
-                .billId(TestConstants.billIdRepo)
-                .dueDate(TestConstants.due_date)
-                .billTotalAmount(TestConstants.billTotalAmount)
-                .cnpj(TestConstants.companyCnpj)
+                .rowNum(TestConstants.ROW_NUM)
+                .numConta(TestConstants.NUM_CONTA_REPO)
+                .billId(TestConstants.BILL_ID_REPO)
+                .dueDate(TestConstants.DUE_DATE)
+                .billTotalAmount(TestConstants.BILL_TOTAL_AMOUNT)
+                .cnpj(TestConstants.COMPANY_CNPJ)
                 .build();
     }
 
@@ -44,19 +45,19 @@ public class MockBuilders {
 
     public static Data buildMockData() {
         return Data.builder()
-                .billId(TestConstants.fatura)
-                .dueDate(TestConstants.due_date)
-                .billTotalAmount(TestConstants.billTotalAmount)
+                .billId(TestConstants.FATURA)
+                .dueDate(TestConstants.DUE_DATE)
+                .billTotalAmount(TestConstants.BILL_TOTAL_AMOUNT)
                 .financeCharges(buildMockListFinanceCharges())
                 .build();
     }
 
     public static FinanceCharges buildMockFinanceCharges() {
         return FinanceCharges.builder()
-                .type(TestConstants.type)
-                .additionalInfo(TestConstants.additionalInfo)
-                .amount(TestConstants.chargeAmount)
-                .currency(TestConstants.chargeCurrency)
+                .type(TestConstants.TYPE)
+                .additionalInfo(TestConstants.ADDITIONAL_INFO)
+                .amount(TestConstants.CHARGE_AMOUNT)
+                .currency(TestConstants.CHARGE_CURRENCY)
                 .build();
     }
 
@@ -67,9 +68,9 @@ public class MockBuilders {
 
     public static Meta buildMockMeta() {
         return Meta.builder()
-                .uuid(TestConstants.UUID)
-                .sourceTimestamp(TestConstants.localDateTime)
-                .cnpj(TestConstants.companyCnpj)
+                .uuid(UUID.randomUUID().toString())
+                .sourceTimestamp(TestConstants.LOCAL_DATE_TIME)
+                .cnpj(TestConstants.COMPANY_CNPJ)
                 .build();
     }
 
@@ -83,17 +84,17 @@ public class MockBuilders {
 
     public static ArrayList<String> buildMockFaturas() {
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(TestConstants.fatura);
+        arrayList.add(TestConstants.FATURA);
         return arrayList;
     }
 
     public static FaturaCartaoEncargos buildMockFaturaCartaoEncargos() {
         return FaturaCartaoEncargos.builder()
-                .rowNum(TestConstants.row_num)
-                .numConta(TestConstants.numConta)
-                .billId(TestConstants.fatura)
-                .type(TestConstants.encargoType)
-                .currency(TestConstants.currency)
+                .rowNum(TestConstants.ROW_NUM)
+                .numConta(TestConstants.NUM_CONTA)
+                .billId(TestConstants.FATURA)
+                .type(TestConstants.ENCARGO_TYPE)
+                .currency(TestConstants.CURRENCY)
                 .build();
     }
 
