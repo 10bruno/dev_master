@@ -12,17 +12,19 @@ import java.util.Optional;
 
 @Repository
 public interface FaturaRepository extends JpaRepository<FaturaCartaoDados, String> {
-    @Query(value = "SELECT rownum AS row_num\n" +
-            ",f.conta AS num_conta\n" +
-            ",f.fatura AS bill_id\n" +
-            ",f.dt_vct AS due_date\n" +
-            ",f.valor_final AS bill_total_amount\n" +
-            ",f.cnpj AS company_cnpj\n" +
-            " FROM fatura f\n" +
-            " WHERE 1 = 1\n" +
-            " AND f.conta = :numConta\n" +
-            " AND f.dt_vct >= add_months(SYSDATE, -12)\n" +
-            " ORDER BY f.fatura ASC\n", nativeQuery = true)
+    @Query(value = """
+            SELECT rownum AS row_num
+            ,f.conta AS num_conta
+            ,f.fatura AS bill_id
+            ,f.dt_vct AS due_date
+            ,f.valor_final AS bill_total_amount
+            ,f.cnpj AS company_cnpj
+             FROM fatura f
+             WHERE 1 = 1
+             AND f.conta = :numConta
+             AND f.dt_vct >= add_months(SYSDATE, -12)
+             ORDER BY f.fatura ASC
+            """, nativeQuery = true)
     Optional<List<FaturaCartaoDados>> findByNumConta(@Param("numConta") String numConta);
 
 }
