@@ -24,7 +24,7 @@ public interface FaturaRepository extends JpaRepository<FaturaCartaoDados, Strin
              AND f.conta = :numConta
              AND f.dt_vct >= add_months(SYSDATE, -12)
              ORDER BY f.fatura ASC
-             """, nativeQuery = true)
+            """, nativeQuery = true)
     Optional<List<FaturaCartaoDados>> findByNumConta(@Param("numConta") String numConta);
 
 }
